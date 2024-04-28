@@ -20,7 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -112,9 +111,9 @@ public class ElectricityController {
     public Response<Page<PaymentRecordResponse>> listAllPaymentRecord(@RequestParam(required = false)
                                                                       UUID roomId,
                                                                       @RequestParam(required = false)
-                                                                      LocalDateTime startTime,
+                                                                      OffsetDateTime startTime,
                                                                       @RequestParam(required = false)
-                                                                      LocalDateTime endTime,
+                                                                      OffsetDateTime endTime,
                                                                       @RequestParam(defaultValue = "0")
                                                                       Integer pageNo,
                                                                       @RequestParam(defaultValue = "10")

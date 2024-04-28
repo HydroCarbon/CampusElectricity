@@ -32,6 +32,8 @@ public class UserResponse {
      */
     private String building;
 
+    private UUID roomId;
+
     /**
      * 房间号
      */
@@ -52,16 +54,20 @@ public class UserResponse {
      */
     private String studentNo;
 
+    private String role;
+
     public static UserResponse fromEntity(UserEntity userEntity) {
         var userResponse = new UserResponse();
         userResponse.setId(userEntity.getId());
         userResponse.setUsername(userEntity.getUsername());
         userResponse.setName(userEntity.getName());
         userResponse.setBuilding(userEntity.getRoom().getBuilding().getName());
+        userResponse.setRoomId(userEntity.getRoom().getId());
         userResponse.setRoom(userEntity.getRoom().getName());
         userResponse.setPhone(userEntity.getPhone());
         userResponse.setEmail(userEntity.getEmail());
         userResponse.setStudentNo(userEntity.getStudentNo());
+        userResponse.setRole(userEntity.getRole());
         return userResponse;
     }
 }

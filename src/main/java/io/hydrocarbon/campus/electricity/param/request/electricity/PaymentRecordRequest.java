@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 /**
  * @author HydroCarbon
@@ -22,7 +22,7 @@ public class PaymentRecordRequest {
         PaymentRecordEntity paymentRecordEntity = new PaymentRecordEntity();
         paymentRecordEntity.setUserId(UserUtil.getCurrentUserId());
         paymentRecordEntity.setCost(amount);
-        paymentRecordEntity.setPaymentTime(LocalDateTime.now());
+        paymentRecordEntity.setPaymentTime(OffsetDateTime.now());
         paymentRecordEntity.setCreatedBy(UserUtil.getCurrentUserId());
         paymentRecordEntity.setUpdatedBy(UserUtil.getCurrentUserId());
         return paymentRecordEntity;

@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
@@ -22,7 +22,7 @@ import java.util.UUID;
 public class PaymentRecordParam extends PageParam {
     private UUID roomId;
 
-    private LocalDateTime startTime;
+    private OffsetDateTime startTime;
 
-    private LocalDateTime endTime;
+    private OffsetDateTime endTime;
 }

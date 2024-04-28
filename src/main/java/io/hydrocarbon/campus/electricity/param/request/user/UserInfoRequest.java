@@ -40,4 +40,9 @@ public class UserInfoRequest {
      * 学号
      */
     private String studentNo;
+
+    /**
+     * 角色
+     */
+    private String role;
 }

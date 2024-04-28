@@ -30,6 +30,8 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: false
+  main:
+    allow-circular-references: true
 token:
   signing:
     key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351

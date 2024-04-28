@@ -85,4 +85,10 @@ public class UserController {
 
         return Response.success(userService.editInfo(userId, userInfo));
     }
+
+    @PostMapping("/{userId}/change-password")
+    public Response<Boolean> changePassword(@PathVariable String userId,
+                                            @RequestParam String password) {
+        return Response.success(userService.changePassword(userId, password));
+    }
 }

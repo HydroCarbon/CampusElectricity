@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -20,7 +20,7 @@ public class PaymentRecordEntity extends BaseEntity {
     @Column(name = "user_id", columnDefinition = "uuid not null")
     private UUID userId;
 
-    @OneToOne
+    @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private UserEntity user;
 
@@ -30,5 +30,5 @@ public class PaymentRecordEntity extends BaseEntity {
 
     @NotNull
     @Column(name = "payment_time", nullable = false)
-    private LocalDateTime paymentTime;
+    private OffsetDateTime paymentTime;
 }
