@@ -1,9 +1,9 @@
 package io.hydrocarbon.campus.electricity.entity.user;
 
 import io.hydrocarbon.campus.electricity.entity.BaseEntity;
+import io.hydrocarbon.campus.electricity.entity.building.RoomEntity;
 import io.hydrocarbon.campus.electricity.enums.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -56,6 +56,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
      * 宿舍 ID
      */
     private UUID roomId;
+
+    @ManyToOne
+    @JoinTable(name = "room")
+    @JoinColumn(name = "room_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private RoomEntity room;
 
     /**
      * 学号

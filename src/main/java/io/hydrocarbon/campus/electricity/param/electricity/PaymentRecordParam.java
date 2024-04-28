@@ -20,9 +20,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentRecordParam extends PageParam {
-
-    private UUID buildingId;
-
     private UUID roomId;
 
     private LocalDateTime startTime;

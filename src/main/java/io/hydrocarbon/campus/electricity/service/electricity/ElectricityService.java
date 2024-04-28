@@ -18,7 +18,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -78,15 +80,19 @@ public class ElectricityService {
 
         Specification<ElectricityRecordEntity> specification = (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
-            if (param.getStartTime() != null) {
+            if (userEntity.isPresent()) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("roomId"),
+                        userEntity.get().getRoom().getId()));
+            } else {
+                if (Objects.nonNull(param.getRoomId())) {
+                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("roomId"), param.getRoomId()));
+                }
+            }
+            if (Objects.nonNull(param.getStartTime())) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThanOrEqualTo(root.get("startTime"), param.getStartTime()));
             }
-            if (param.getEndTime() != null) {
+            if (Objects.nonNull(param.getEndTime())) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.lessThanOrEqualTo(root.get("endTime"), param.getEndTime()));
-            }
-            if (userEntity.isPresent()) {
-                // predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("roomId"),
-                //       userEntity.get().getRoom().getId()));
             }
             return predicate;
         };
@@ -97,10 +103,18 @@ public class ElectricityService {
     public Page<PaymentRecordEntity> pageQueryPaymentRecord(PaymentRecordParam param) {
         Assert.notNull(param, "查询参数不能为空");
 
-        // TODO 查询人
+        UUID roomId = param.getRoomId();
+        List<UserEntity> roomList = userRepository.findDistinctByRoomId(roomId);
+
+        List<UUID> userIdList = roomList.stream()
+                .map(UserEntity::getId)
+                .toList();
 
         Specification<PaymentRecordEntity> specification = (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
+            if (!CollectionUtils.isEmpty(userIdList)) {
+                predicate = criteriaBuilder.and(predicate, root.get("userId").in(userIdList));
+            }
             if (param.getStartTime() != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThanOrEqualTo(root.get("createdAt"), param.getStartTime()));
             }

@@ -1,5 +1,6 @@
 package io.hydrocarbon.campus.electricity.param.request.electricity;
 
+import io.hydrocarbon.campus.electricity.constants.Constants;
 import io.hydrocarbon.campus.electricity.entity.electricity.ElectricityRecordEntity;
 import io.hydrocarbon.campus.electricity.util.UserUtil;
 import lombok.Data;
@@ -18,8 +19,6 @@ public class ElectricityRecordRequest {
 
     private BigDecimal electricity;
 
-    private BigDecimal cost;
-
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
@@ -28,6 +27,8 @@ public class ElectricityRecordRequest {
         ElectricityRecordEntity entity = new ElectricityRecordEntity();
         entity.setRoomId(roomId);
         entity.setElectricity(electricity);
+        // 按照时间段计算电费
+        BigDecimal cost = electricity.multiply(Constants.Price.ELECTRICITY_PRICE);
         entity.setCost(cost);
         entity.setStartTime(startTime);
         entity.setEndTime(endTime);

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -25,6 +26,7 @@ import java.util.UUID;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
     /**
      * Locates the user based on the username. In the actual implementation, the search
      * may possibly be case sensitive, or case insensitive depending on how the
@@ -52,21 +54,17 @@ public class UserService implements UserDetailsService {
     public Page<UserEntity> page(UserQueryParam userQueryParam) {
         Specification<UserEntity> specification = (root, query, criteriaBuilder) -> {
             var predicates = criteriaBuilder.conjunction();
-            if (userQueryParam.getName() != null) {
+            if (Objects.nonNull(userQueryParam.getName())) {
                 predicates = criteriaBuilder.and(predicates, criteriaBuilder.like(root.get("name"),
                         "%" + userQueryParam.getName() + "%"));
             }
-            if (userQueryParam.getStudentNo() != null) {
+            if (Objects.nonNull(userQueryParam.getStudentNo())) {
                 predicates = criteriaBuilder.and(predicates, criteriaBuilder.like(root.get("studentNo"),
                         "%" + userQueryParam.getStudentNo() + "%"));
             }
-            if (userQueryParam.getBuildingName() != null) {
-                predicates = criteriaBuilder.and(predicates, criteriaBuilder.equal(root.get("room").get("building").get("name"),
-                        userQueryParam.getBuildingName()));
-            }
-            if (userQueryParam.getRoomName() != null) {
-                predicates = criteriaBuilder.and(predicates, criteriaBuilder.equal(root.get("room").get("name"),
-                        userQueryParam.getRoomName()));
+            if (Objects.nonNull(userQueryParam.getRoomId())) {
+                predicates = criteriaBuilder.and(predicates, criteriaBuilder.equal(root.get("roomId"),
+                        userQueryParam.getRoomId()));
             }
             return predicates;
         };

@@ -13,6 +13,8 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 /**
  * @author HydroCarbon
  * @since 2024-04-23
@@ -30,8 +32,7 @@ public class UserController {
      *
      * @param name      姓名
      * @param studentNo 学号
-     * @param building  楼栋
-     * @param room      房间号
+     * @param roomId    房间 ID
      * @param pageNo    页码
      * @param pageSize  每页大小
      * @return 用户列表
@@ -43,9 +44,7 @@ public class UserController {
                                              @RequestParam(required = false)
                                              String studentNo,
                                              @RequestParam(required = false)
-                                             String building,
-                                             @RequestParam(required = false)
-                                             String room,
+                                             UUID roomId,
                                              @RequestParam(defaultValue = "0")
                                              Integer pageNo,
                                              @RequestParam(defaultValue = "10")
@@ -53,8 +52,7 @@ public class UserController {
         var userQueryParam = UserQueryParam.builder()
                 .name(name)
                 .studentNo(studentNo)
-                .buildingName(building)
-                .roomName(room)
+                .roomId(roomId)
                 .pageNo(pageNo)
                 .pageSize(pageSize)
                 .build();

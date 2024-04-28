@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.UUID;
+
 /**
  * @author HydroCarbon
  * @since 2024-04-23
@@ -29,12 +31,7 @@ public class UserQueryParam extends PageParam {
     private String studentNo;
 
     /**
-     * 楼栋
-     */
-    private String buildingName;
-
-    /**
      * 房间
      */
-    private String roomName;
+    private UUID roomId;
 }

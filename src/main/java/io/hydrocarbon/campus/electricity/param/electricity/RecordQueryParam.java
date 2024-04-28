@@ -22,11 +22,6 @@ import java.util.UUID;
 public class RecordQueryParam extends PageParam {
 
     /**
-     * 楼栋
-     */
-    private UUID buildingId;
-
-    /**
      * 房间
      */
     private UUID roomId;

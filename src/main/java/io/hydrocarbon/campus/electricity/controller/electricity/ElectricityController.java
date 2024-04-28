@@ -60,18 +60,15 @@ public class ElectricityController {
     /**
      * 查询电表记录
      *
-     * @param buildingId 楼栋
-     * @param roomId     房间
-     * @param startTime  开始时间
-     * @param endTime    结束时间
-     * @param pageNo     页码
-     * @param pageSize   每页大小
+     * @param roomId    房间 ID
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @param pageNo    页码
+     * @param pageSize  每页大小
      * @return 电表记录
      */
     @GetMapping("/record/list")
     public Response<Page<ElectricityRecordResponse>> list(@RequestParam(required = false)
-                                                          UUID buildingId,
-                                                          @RequestParam(required = false)
                                                           UUID roomId,
                                                           @RequestParam(required = false)
                                                           LocalDateTime startTime,
@@ -82,7 +79,6 @@ public class ElectricityController {
                                                           @RequestParam(value = "size", defaultValue = "10")
                                                           Integer pageSize) {
         RecordQueryParam param = RecordQueryParam.builder()
-                .buildingId(buildingId)
                 .roomId(roomId)
                 .startTime(startTime)
                 .endTime(endTime)
@@ -104,18 +100,15 @@ public class ElectricityController {
     /**
      * 查询所有缴费记录
      *
-     * @param buildingId 楼栋 ID
-     * @param roomId     房间 ID
-     * @param startTime  开始时间
-     * @param endTime    结束时间
-     * @param pageNo     页码
-     * @param pageSize   每页大小
+     * @param roomId    房间 ID
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @param pageNo    页码
+     * @param pageSize  每页大小
      * @return 缴费记录
      */
     @GetMapping("/payment/list")
     public Response<Page<PaymentRecordResponse>> listAllPaymentRecord(@RequestParam(required = false)
-                                                                      UUID buildingId,
-                                                                      @RequestParam(required = false)
                                                                       UUID roomId,
                                                                       @RequestParam(required = false)
                                                                       LocalDateTime startTime,
@@ -126,7 +119,6 @@ public class ElectricityController {
                                                                       @RequestParam(value = "size", defaultValue = "10")
                                                                       Integer pageSize) {
         PaymentRecordParam param = PaymentRecordParam.builder()
-                .buildingId(buildingId)
                 .roomId(roomId)
                 .startTime(startTime)
                 .endTime(endTime)
