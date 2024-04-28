@@ -19,12 +19,8 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@ToString
 @Table(name = "user")
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserEntity extends BaseEntity implements UserDetails {
 
     /**
@@ -55,10 +51,10 @@ public class UserEntity extends BaseEntity implements UserDetails {
     /**
      * 宿舍 ID
      */
+    @Column(name = "room_id", columnDefinition = "uuid not null")
     private UUID roomId;
 
-    @ManyToOne
-    @JoinTable(name = "room")
+    @ManyToOne(targetEntity = RoomEntity.class)
     @JoinColumn(name = "room_id", referencedColumnName = "id", insertable = false, updatable = false)
     private RoomEntity room;
 

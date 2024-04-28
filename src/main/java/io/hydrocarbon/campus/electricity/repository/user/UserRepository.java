@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,4 +29,7 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID>,
 
     @Query("select distinct u from UserEntity u where u.roomId = ?1")
     List<UserEntity> findDistinctByRoomId(UUID roomId);
+
+    @Query("select distinct u from UserEntity u where u.roomId in ?1")
+    List<UserEntity> findDistinctByRoomIdIn(Collection<UUID> roomIds);
 }

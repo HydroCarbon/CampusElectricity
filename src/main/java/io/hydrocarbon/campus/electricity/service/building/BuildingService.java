@@ -5,15 +5,15 @@ import io.hydrocarbon.campus.electricity.entity.building.RoomEntity;
 import io.hydrocarbon.campus.electricity.param.request.building.RoomRequest;
 import io.hydrocarbon.campus.electricity.param.response.building.BuildingResponse;
 import io.hydrocarbon.campus.electricity.param.response.building.RoomResponse;
+import io.hydrocarbon.campus.electricity.param.response.user.UserResponse;
 import io.hydrocarbon.campus.electricity.repository.building.BuildingRepository;
 import io.hydrocarbon.campus.electricity.repository.building.RoomRepository;
+import io.hydrocarbon.campus.electricity.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -27,6 +27,7 @@ public class BuildingService {
     private final BuildingRepository buildingRepository;
 
     private final RoomRepository roomRepository;
+    private final UserRepository userRepository;
 
     public List<BuildingResponse> listBuilding() {
         List<BuildingEntity> allBuildingList = buildingRepository.findAll(Sort.by(Sort.Order.desc("createdAt")));
@@ -65,5 +66,28 @@ public class BuildingService {
         building.setName(name);
         buildingRepository.save(building);
         return building.getId();
+    }
+
+    public List<UserResponse> listUser(UUID buildingId, UUID roomId) {
+        if (Objects.nonNull(roomId)) {
+            return userRepository.findDistinctByRoomId(roomId)
+                    .stream()
+                    .map(UserResponse::fromEntity)
+                    .toList();
+        }
+
+        if (Objects.nonNull(buildingId)) {
+            List<RoomEntity> roomList = roomRepository.findDistinctByBuildingId(buildingId);
+            List<UUID> roomIdList = roomList.stream()
+                    .map(RoomEntity::getId)
+                    .toList();
+
+            return userRepository.findDistinctByRoomIdIn(roomIdList)
+                    .stream()
+                    .map(UserResponse::fromEntity)
+                    .toList();
+        }
+
+        return List.of();
     }
 }

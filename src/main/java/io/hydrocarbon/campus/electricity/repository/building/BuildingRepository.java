@@ -4,10 +4,12 @@ import io.hydrocarbon.campus.electricity.entity.building.BuildingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 /**
  * @author HydroCarbon
  * @since 2024-04-27
  */
 @Repository
-public interface BuildingRepository extends JpaRepository<BuildingEntity, Long> {
+public interface BuildingRepository extends JpaRepository<BuildingEntity, UUID> {
 }

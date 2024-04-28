@@ -6,7 +6,7 @@ import io.hydrocarbon.campus.electricity.util.UserUtil;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
@@ -19,9 +19,9 @@ public class ElectricityRecordRequest {
 
     private BigDecimal electricity;
 
-    private LocalDateTime startTime;
+    private OffsetDateTime startTime;
 
-    private LocalDateTime endTime;
+    private OffsetDateTime endTime;
 
     public ElectricityRecordEntity toEntity() {
         ElectricityRecordEntity entity = new ElectricityRecordEntity();

@@ -28,19 +28,18 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = UserEntity.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .name(request.getName())
-                .email(request.getEmail())
-                .phone(request.getPhone())
-                .roomId(request.getRoomId())
-                .studentNo(request.getStudentNo())
-                .role(Role.USER.name())
-                .build();
+        var userEntity = new UserEntity();
+        userEntity.setUsername(request.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
+        userEntity.setName(request.getName());
+        userEntity.setEmail(request.getEmail());
+        userEntity.setPhone(request.getPhone());
+        userEntity.setRoomId(request.getRoomId());
+        userEntity.setStudentNo(request.getStudentNo());
+        userEntity.setRole(Role.USER.name());
 
-        userRepository.save(user);
-        var jwt = jwtService.generateToken(user);
+        userRepository.save(userEntity);
+        var jwt = jwtService.generateToken(userEntity);
         return AuthenticationResponse.builder()
                 .token(jwt)
                 .build();

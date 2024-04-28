@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -36,9 +36,9 @@ public class ElectricityRecordEntity extends BaseEntity {
 
     @NotNull
     @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
+    private OffsetDateTime startTime;
 
     @NotNull
     @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
+    private OffsetDateTime endTime;
 }

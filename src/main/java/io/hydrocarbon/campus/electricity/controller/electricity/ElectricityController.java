@@ -21,6 +21,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
@@ -71,12 +72,12 @@ public class ElectricityController {
     public Response<Page<ElectricityRecordResponse>> list(@RequestParam(required = false)
                                                           UUID roomId,
                                                           @RequestParam(required = false)
-                                                          LocalDateTime startTime,
+                                                          OffsetDateTime startTime,
                                                           @RequestParam(required = false)
-                                                          LocalDateTime endTime,
-                                                          @RequestParam(value = "page", defaultValue = "0")
+                                                          OffsetDateTime endTime,
+                                                          @RequestParam(defaultValue = "0")
                                                           Integer pageNo,
-                                                          @RequestParam(value = "size", defaultValue = "10")
+                                                          @RequestParam(defaultValue = "10")
                                                           Integer pageSize) {
         RecordQueryParam param = RecordQueryParam.builder()
                 .roomId(roomId)
@@ -114,9 +115,9 @@ public class ElectricityController {
                                                                       LocalDateTime startTime,
                                                                       @RequestParam(required = false)
                                                                       LocalDateTime endTime,
-                                                                      @RequestParam(value = "page", defaultValue = "0")
+                                                                      @RequestParam(defaultValue = "0")
                                                                       Integer pageNo,
-                                                                      @RequestParam(value = "size", defaultValue = "10")
+                                                                      @RequestParam(defaultValue = "10")
                                                                       Integer pageSize) {
         PaymentRecordParam param = PaymentRecordParam.builder()
                 .roomId(roomId)

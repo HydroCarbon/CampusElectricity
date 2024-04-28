@@ -4,6 +4,7 @@ import io.hydrocarbon.campus.electricity.param.request.building.RoomRequest;
 import io.hydrocarbon.campus.electricity.param.response.Response;
 import io.hydrocarbon.campus.electricity.param.response.building.BuildingResponse;
 import io.hydrocarbon.campus.electricity.param.response.building.RoomResponse;
+import io.hydrocarbon.campus.electricity.param.response.user.UserResponse;
 import io.hydrocarbon.campus.electricity.service.building.BuildingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -65,5 +66,19 @@ public class BuildingController {
     @GetMapping("/{buildingId}/rooms")
     public Response<List<RoomResponse>> listRoom(@PathVariable UUID buildingId) {
         return Response.success(buildingService.listRoom(buildingId));
+    }
+
+    /**
+     * 获取楼栋下的全部用户信息
+     *
+     * @param buildingId 楼栋 ID
+     * @return 楼栋下的全部用户信息
+     */
+    @GetMapping("/users")
+    public Response<List<UserResponse>> listUser(@RequestParam(required = false)
+                                                 UUID buildingId,
+                                                 @RequestParam(required = false)
+                                                 UUID roomId) {
+        return Response.success(buildingService.listUser(buildingId, roomId));
     }
 }

@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
@@ -34,10 +34,10 @@ public class RecordQueryParam extends PageParam {
     /**
      * 开始时间
      */
-    private LocalDateTime startTime;
+    private OffsetDateTime startTime;
 
     /**
      * 结束时间
      */
-    private LocalDateTime endTime;
+    private OffsetDateTime endTime;
 }

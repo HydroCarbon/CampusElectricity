@@ -57,8 +57,8 @@ public class UserResponse {
         userResponse.setId(userEntity.getId());
         userResponse.setUsername(userEntity.getUsername());
         userResponse.setName(userEntity.getName());
-       // userResponse.setBuilding(userEntity.getRoom().getBuilding().getName());
-        //userResponse.setRoom(userEntity.getRoom().getName());
+        userResponse.setBuilding(userEntity.getRoom().getBuilding().getName());
+        userResponse.setRoom(userEntity.getRoom().getName());
         userResponse.setPhone(userEntity.getPhone());
         userResponse.setEmail(userEntity.getEmail());
         userResponse.setStudentNo(userEntity.getStudentNo());
